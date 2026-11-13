@@ -1,0 +1,44 @@
+{
+  "roles": {
+    "viewer": {
+      "level": 5,
+      "description": "Read-only stakeholder (client, investor): sees team reports and projects, changes nothing",
+      "permissions": ["profile:read:own", "profile:update:own", "projects:read:team", "reports:read:team"]
+    },
+    "user": {
+      "level": 10,
+      "description": "Sales rep: own leads, deals and projects",
+      "permissions": [
+        "profile:read:own", "profile:update:own",
+        "projects:read:own", "projects:create:own", "projects:update:own", "projects:delete:own",
+        "leads:*:own", "deals:read:own", "deals:create:own", "deals:update:own"
+      ]
+    },
+    "manager": {
+      "level": 50,
+      "inherits": ["user"],
+      "description": "Sales manager: whole team pipeline, can reassign leads and approve discounts",
+      "permissions": [
+        "users:read:team", "users:create:team", "users:update:team", "users:disable:team",
+        "projects:read:team", "projects:update:team",
+        "leads:*:team", "deals:read:team", "deals:update:team", "deals:approve:team",
+        "reports:read:team"
+      ]
+    },
+    "admin": {
+      "level": 100,
+      "inherits": ["manager"],
+      "description": "Account owner: everything inside the organisation incl. billing and integrations",
+      "permissions": [
+        "users:*:tenant", "projects:*:tenant", "leads:*:tenant", "deals:*:tenant",
+        "reports:*:tenant", "billing:*:tenant", "settings:*:tenant", "integrations:*:tenant",
+        "audit:read:tenant", "sessions:*:tenant"
+      ]
+    }
+  },
+  "defaultRole": "user",
+  "assignable": {
+    "admin": ["admin", "manager", "user", "viewer"],
+    "manager": ["user", "viewer"]
+  }
+}

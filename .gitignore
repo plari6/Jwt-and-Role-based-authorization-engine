@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+data/
+keys/
+*.db
+*.db-wal
+*.db-shm
+authz.config.json
+policy.json
+!examples/*.json
+coverage/
+*.log
